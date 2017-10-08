@@ -22,8 +22,7 @@ public class DLockOrder {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    
-                        DLock lock = new DLock("192.168.1.107:2181,192.168.1.113:2181,192.168.1.114:2181", "lock");
+                    DLock lock = new DLock("192.168.1.107:2181,192.168.1.113:2181,192.168.1.114:2181", "lock");
                     lock.lock();
                     System.out.println("OrderNo:" + getOrdersNo() + " " + Thread.currentThread().getName());
                     lock.unlock();
