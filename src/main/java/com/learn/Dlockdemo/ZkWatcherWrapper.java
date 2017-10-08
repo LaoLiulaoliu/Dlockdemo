@@ -1,7 +1,5 @@
 package com.learn.Dlockdemo;
 
-
-
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.KeeperException.ConnectionLossException;
 import org.apache.zookeeper.KeeperException.SessionExpiredException;
@@ -14,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  *
+ * http://www.cnblogs.com/zhangchaoyang/articles/3813217.html
  * @description 自定义持久性的zookeeper watcher
  * @author zhangchaoyang
  * @date 2014-6-22

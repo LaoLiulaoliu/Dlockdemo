@@ -11,7 +11,7 @@ import java.io.IOException;
  * @description Zookeeper Watcher演示类
  * @date 2014-6-22
  */
-public class demoZkWatcher {
+public class ZkWatcherDemo {
     private static ZooKeeper zkp = null;
     private static final int TIMEOUT = 6000;
     private static final String conStr = "192.168.1.107:2181,192.168.1.113:2181,192.168.1.114:2181";
