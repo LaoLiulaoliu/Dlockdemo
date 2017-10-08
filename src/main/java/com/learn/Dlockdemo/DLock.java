@@ -27,7 +27,7 @@ public class DLock implements Watcher {
         this.path = path;
 
         try {
-            zk = new ZooKeeper(host, 2000, this);//10 threads, need 10 times of sessionTimeout
+            zk = new ZooKeeper(host, 20000, this);//10 threads, need 10 times of sessionTimeout
         } catch (IOException e) {
             e.printStackTrace();
         }
