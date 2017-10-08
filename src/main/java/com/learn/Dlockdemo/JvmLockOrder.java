@@ -45,29 +45,3 @@ public class JvmLockOrder {
     }
 }
 
-/* 分布锁：
-缓存：（不可重入，非阻塞，memcache不支持持久化）
-    redis setnx
-    memcache add
-Zookeeper: (可重入，安全性高)
-Java客户端：zkclient, curator
-
-原理：zookeeper分布式协调开放服务框架
-like, dubbo jstorm disconf
-分布式锁：
-节点：znode四种节点树形结构
-persistent(0, false, false);
-persistent_sequential(2, false, true);
-ephemeral(1, true, false); 退出用户Session则创建的节点消失
-ephemeral_sequential(3, true, true);
-
-Wathcer:
-abstract public void process(WatchedEvent event);
-KeeperState 通知状态
-EventType 通知类型
-
-ZAB协议:
-zk的原子消息广播协议，paxos算法改进而来
-Zab有全局zxId 全局的唯一性
-
- */

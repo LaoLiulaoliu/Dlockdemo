@@ -38,6 +38,7 @@ public class DLock implements Watcher {
                 // other thread may create Znode before this thread,
                 // Exception raise
                 zk.create(root, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT); //parent node
+                System.out.println("create root!");
             }
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
