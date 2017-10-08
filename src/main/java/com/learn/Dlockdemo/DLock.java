@@ -27,13 +27,16 @@ public class DLock implements Watcher {
         this.path = path;
 
         try {
-            zk = new ZooKeeper(host, 2000, this);
+            zk = new ZooKeeper(host, 2000, this);//10 threads, need 10 times of sessionTimeout
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
             Stat stat = zk.exists(root, false);
             if (stat == null) {
+                // when create root Znode,
+                // other thread may create Znode before this thread,
+                // Exception raise
                 zk.create(root, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT); //parent node
             }
         } catch (KeeperException | InterruptedException e) {
@@ -41,7 +44,7 @@ public class DLock implements Watcher {
         }
     }
 
-    public void lock() {
+    public String lock() {
         try {
             currentNode = zk.create(root+"/"+path, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
 
@@ -52,7 +55,7 @@ public class DLock implements Watcher {
 
                 //排序取到最小节点，则拿到锁。
                 if (currentNode.equals(lockObjNodes.get(0))) {
-                    return;
+                    return currentNode;
                 } else {
                     // lock_0001
                     String childZnode = currentNode.substring(currentNode.lastIndexOf("/")+1);
@@ -68,7 +71,7 @@ public class DLock implements Watcher {
                         latch = new CountDownLatch(1);
                         boolean ret = latch.await(5000, TimeUnit.MILLISECONDS);
                         if (ret == true) {
-                            return;
+                            return currentNode;
                         }
                     }
                 }
@@ -76,6 +79,7 @@ public class DLock implements Watcher {
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
+        return "";
     }
 
     public void unlock() {
